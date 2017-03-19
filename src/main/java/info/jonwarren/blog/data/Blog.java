@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Data container for the blog.
  *
- * @author Jon Warren <jon@jonwarren.info>
+ * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
 public class Blog {
 

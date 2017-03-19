@@ -6,7 +6,7 @@ package info.jonwarren.blog.data;
 /**
  * Exception for when the {@link Tag} count is larger than {@link Long#MAX_VALUE}.
  *
- * @author Jon Warren <jon@jonwarren.info>
+ * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
 public class CountOverflowException extends Exception {
     private static final long serialVersionUID = 4519061500163899263L;

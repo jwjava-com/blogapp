@@ -12,7 +12,7 @@ import org.junit.Test;
 /**
  * Test cases for setters of {@link Tag}
  *
- * @author Jon Warren <jon@jonwarren.info>
+ * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
 public class TagTest {
 

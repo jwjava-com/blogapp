@@ -23,7 +23,7 @@ import org.apache.commons.collections.CollectionUtils;
 /**
  * Data container for a single blog entry.
  *
- * @author Jon Warren <jon@jonwarren.info>
+ * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
 @Entity
 @Table(name = "entries")

@@ -9,7 +9,7 @@ import java.time.Instant;
 /**
  * Static helper methods for dealing with timestamps.
  *
- * @author Jon Warren <jon@jonwarren.info>
+ * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
 public class TimestampHelpers {
 

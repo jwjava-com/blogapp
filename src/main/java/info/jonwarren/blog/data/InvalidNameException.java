@@ -6,7 +6,7 @@ package info.jonwarren.blog.data;
 /**
  * Exception for when a name is invalid.
  *
- * @author Jon Warren <jon@jonwarren.info>
+ * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
 public class InvalidNameException extends Exception {
     private static final long serialVersionUID = 6708508859426234102L;

@@ -17,7 +17,7 @@ import org.apache.commons.lang.StringUtils;
  * Data container for tags that are assignable to entries.
  * 
  * @see {@link Entry}
- * @author Jon Warren <jon@jonwarren.info>
+ * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
 @Entity
 @Table(name = "tags")
