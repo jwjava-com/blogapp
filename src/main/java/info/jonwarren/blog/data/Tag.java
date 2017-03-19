@@ -3,17 +3,72 @@
  */
 package info.jonwarren.blog.data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Data container for tags that are assignable to entries.
  * 
  * @see {@link Entry}
  * @author Jon Warren <jon@jonwarren.info>
  */
+@Entity
+@Table(name = "tags")
 public class Tag {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "tag_id")
     private Long id;
+
+    @NotNull
+    @Column(name = "tag_name")
     private String name;
-    private Long count;
+
+    @NotNull
+    @Column(name = "tag_usage_cnt")
+    private Long count = 0L;
+
+    /**
+     * Public static method for creating a {@link Tag} with {@link #name} set to the provided value.
+     * 
+     * @param name
+     *            the name to set
+     * @return the {@link Tag} object
+     * @throws InvalidNameException
+     *             if provided name is blank or null
+     * @see {@link StringUtils#isBlank(String)}
+     */
+    public static Tag createTag(String name) throws InvalidNameException {
+        if (StringUtils.isBlank(name)) {
+            throw new InvalidNameException("Tag name can not be blank or null");
+        }
+
+        Tag tag = new Tag();
+        tag.setName(name);
+        return tag;
+    }
+
+    /**
+     * Increment the {@link #count} value by 1.
+     * 
+     * @throws CountOverflowException
+     *             if {@link #count} is already at {@link Long#MAX_VALUE}
+     */
+    public void incrementCount() throws CountOverflowException {
+        if (this.count == Long.MAX_VALUE) {
+            throw new CountOverflowException("Cannot incrementCount, we are at MAX_VALUE for Long");
+        }
+
+        this.count++;
+    }
 
     /**
      * @return the id
@@ -40,8 +95,15 @@ public class Tag {
     /**
      * @param name
      *            the name to set
+     * @throws InvalidNameException
+     *             if provided name is blank or null
+     * @see {@link StringUtils#isBlank(String)}
      */
-    public void setName(String name) {
+    public void setName(String name) throws InvalidNameException {
+        if (StringUtils.isBlank(name)) {
+            throw new InvalidNameException("Tag name can not be blank or null");
+        }
+
         this.name = name;
     }
 
@@ -53,11 +115,18 @@ public class Tag {
     }
 
     /**
+     * Sets the {@link #count} to the provided value, unless a negative value was specified, then sets the
+     * {@link #count} to zero.
+     * 
      * @param count
      *            the count to set
      */
     public void setCount(Long count) {
-        this.count = count;
+        if (count == null || count < 0L) {
+            this.count = 0L;
+        } else {
+            this.count = count;
+        }
     }
 
     /*

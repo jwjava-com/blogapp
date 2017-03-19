@@ -10,11 +10,43 @@ package info.jonwarren.blog.data;
  * @author Jon Warren <jon@jonwarren.info>
  */
 public enum Status {
-    CREATED("Created"), POSTED("Posted"), EDITED("Edited"), DELETED("Deleted");
+    /**
+     * The entry was created
+     */
+    CREATED("Created"),
 
+    /**
+     * The entry is an unpublished draft
+     */
+    DRAFT("Draft"),
+
+    /**
+     * The entry has been made available for display / is published
+     */
+    POSTED("Posted"),
+
+    /**
+     * The entry was edited
+     */
+    EDITED("Edited"),
+
+    /**
+     * The entry has been deleted / removed from display
+     */
+    DELETED("Deleted");
+
+    /**
+     * The user-facing name for this Status.
+     */
     private String name;
 
-    Status(String name) {
+    /**
+     * Prevent creating these outside of this enum
+     * 
+     * @param name
+     *            String to use for the name in calls to toString()
+     */
+    private Status(String name) {
         this.name = name;
     }
 
