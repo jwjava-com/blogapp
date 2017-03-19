@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -114,13 +115,18 @@ public class EntryTest {
 
     /**
      * Test method for {@link Entry#setStatuses(java.util.List)}.
+     * 
+     * @throws InterruptedException
      */
     @Test
-    public final void testSetStatuses() {
+    public final void testSetStatuses() throws InterruptedException {
         Entry entry = new Entry();
         List<EntryStatus> statuses = new ArrayList<EntryStatus>();
+        Thread.sleep(1L);
         statuses.add(EntryStatus.createEntryStatus(Status.CREATED));
+        Thread.sleep(1L);
         statuses.add(EntryStatus.createEntryStatus(Status.DRAFT));
+        Thread.sleep(1L);
         statuses.add(EntryStatus.createEntryStatus(Status.POSTED));
         entry.setStatuses(statuses);
         assertThat(entry.getStatuses(), equalTo(statuses));
@@ -147,17 +153,30 @@ public class EntryTest {
 
     /**
      * Test method for {@link Entry#createEntry()}.
+     * 
+     * @throws InterruptedException
      */
     @Test
-    public final void testCreateEntry() {
+    public final void testCreateEntry() throws InterruptedException {
         try {
+            Entry actual = Entry.createEntry();
+            List<EntryStatus> statuses = actual.getStatuses();
+            Instant createdTime = Instant.now();
+            if (statuses != null && statuses.size() > 0) {
+                createdTime = statuses.get(statuses.size() - 1).getTimestamp();
+            }
+            Thread.sleep(1L);
             Entry expected = new Entry();
             expected.setName("");
             expected.setContent("");
             expected.setStatus(Status.CREATED);
+            statuses = expected.getStatuses();
+            if (statuses != null && statuses.size() > 0) {
+                statuses.get(statuses.size() - 1).setTimestamp(createdTime);
+            }
+            expected.setStatuses(statuses);
             Set<Tag> tags = new HashSet<Tag>();
             expected.setTags(tags);
-            Entry actual = Entry.createEntry();
             assertThat(actual, equalTo(expected));
         } catch (InvalidNameException e) {
             e.printStackTrace();
@@ -167,15 +186,18 @@ public class EntryTest {
 
     /**
      * Test method for {@link Entry#getCurrentStatus()}
+     * 
+     * @throws InterruptedException
      */
     @Test
-    public final void testGetCurrentStatus() {
+    public final void testGetCurrentStatus() throws InterruptedException {
         Entry entry = new Entry();
         List<EntryStatus> statuses = new ArrayList<EntryStatus>();
         statuses.add(EntryStatus.createEntryStatus(Status.CREATED));
         statuses.add(EntryStatus.createEntryStatus(Status.DRAFT));
         statuses.add(EntryStatus.createEntryStatus(Status.POSTED));
         entry.setStatuses(statuses);
+        Thread.sleep(1L);
         EntryStatus current = entry.getCurrentStatus();
         assertThat(current.getStatus(), equalTo(Status.POSTED));
 
@@ -183,50 +205,70 @@ public class EntryTest {
         statuses = new ArrayList<EntryStatus>();
         statuses.add(EntryStatus.createEntryStatus(Status.CREATED));
         entry.setStatuses(statuses);
+        Thread.sleep(1L);
         current = entry.getCurrentStatus();
         assertThat(current.getStatus(), equalTo(Status.CREATED));
 
         entry = Entry.createEntry();
+        Thread.sleep(1L);
         current = entry.getCurrentStatus();
         assertThat(current.getStatus(), equalTo(Status.CREATED));
     }
 
     /**
      * Test method for {@link Entry#setStatus(Status)}.
+     * 
+     * @throws InterruptedException
      */
     @Test
-    public final void testSetStatusStatus() {
+    public final void testSetStatusStatus() throws InterruptedException {
         Entry entry = new Entry();
         entry.setStatus(Status.EDITED);
+        Thread.sleep(1L);
         EntryStatus current = entry.getCurrentStatus();
         assertThat(current.getStatus(), equalTo(Status.EDITED));
     }
 
     /**
      * Test method for {@link Entry#setStatus(EntryStatus)}.
+     * 
+     * @throws InterruptedException
      */
     @Test
-    public final void testSetStatusEntryStatus() {
+    public final void testSetStatusEntryStatus() throws InterruptedException {
         Entry entry = new Entry();
         entry.setStatus(EntryStatus.createEntryStatus(Status.POSTED));
+        Thread.sleep(1L);
         EntryStatus current = entry.getCurrentStatus();
         assertThat(current.getStatus(), equalTo(Status.POSTED));
     }
 
     /**
      * Test method for {@link Entry#addStatuses(java.util.List)}.
+     * 
+     * @throws InterruptedException
      */
     @Test
-    public final void testAddStatuses() {
+    public final void testAddStatuses() throws InterruptedException {
         Entry entry = Entry.createEntry();
+        Instant createdTime = entry.getCurrentStatus().getTimestamp();
         List<EntryStatus> statuses = new ArrayList<EntryStatus>();
         statuses.add(EntryStatus.createEntryStatus(Status.DRAFT));
+        Instant draftTime = statuses.get(statuses.size() - 1).getTimestamp();
         statuses.add(EntryStatus.createEntryStatus(Status.POSTED));
+        Instant postedTime = statuses.get(statuses.size() - 1).getTimestamp();
         entry.addStatuses(statuses);
+        Thread.sleep(1L);
         List<EntryStatus> expected = new ArrayList<EntryStatus>();
-        expected.add(EntryStatus.createEntryStatus(Status.CREATED));
-        expected.add(EntryStatus.createEntryStatus(Status.DRAFT));
-        expected.add(EntryStatus.createEntryStatus(Status.POSTED));
+        EntryStatus created = EntryStatus.createEntryStatus(Status.CREATED);
+        created.setTimestamp(createdTime);
+        expected.add(created);
+        EntryStatus draft = EntryStatus.createEntryStatus(Status.DRAFT);
+        draft.setTimestamp(draftTime);
+        expected.add(draft);
+        EntryStatus posted = EntryStatus.createEntryStatus(Status.POSTED);
+        posted.setTimestamp(postedTime);
+        expected.add(posted);
         assertThat(entry.getStatuses(), equalTo(expected));
     }
 
