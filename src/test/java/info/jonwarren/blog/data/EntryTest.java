@@ -15,6 +15,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import info.jonwarren.blog.exceptions.InvalidNameException;
+
 /**
  * 
  *

@@ -20,6 +20,8 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import info.jonwarren.blog.exceptions.InvalidNameException;
+
 /**
  * Data container for a single blog entry.
  *

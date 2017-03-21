@@ -9,6 +9,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import info.jonwarren.blog.exceptions.CountOverflowException;
+import info.jonwarren.blog.exceptions.InvalidNameException;
+
 /**
  * Test cases for setters of {@link Tag}
  *

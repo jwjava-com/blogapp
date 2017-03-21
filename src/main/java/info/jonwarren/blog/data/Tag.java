@@ -13,6 +13,9 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.StringUtils;
 
+import info.jonwarren.blog.exceptions.CountOverflowException;
+import info.jonwarren.blog.exceptions.InvalidNameException;
+
 /**
  * Data container for tags that are assignable to entries.
  * 
