@@ -1,7 +1,7 @@
 /**
  * 
  */
-package info.jonwarren.blog.data;
+package info.jonwarren.blog.exceptions;
 
 /**
  * Exception for when a name is invalid.

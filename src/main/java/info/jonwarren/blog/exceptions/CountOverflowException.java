@@ -1,7 +1,7 @@
 /**
  * 
  */
-package info.jonwarren.blog.data;
+package info.jonwarren.blog.exceptions;
 
 /**
  * Exception for when the {@link Tag} count is larger than {@link Long#MAX_VALUE}.
