@@ -17,6 +17,7 @@ import info.jonwarren.blog.utils.TimestampHelpers;
  *
  * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
+//TODO: split into separate tests
 public class EntryStatusTest {
 
     /**
