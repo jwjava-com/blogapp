@@ -31,6 +31,11 @@ public enum Status {
     EDITED("Edited"),
 
     /**
+     * The entry has been removed from display / is no longer published
+     */
+    UNPOSTED("UnPosted"),
+
+    /**
      * The entry has been deleted / removed from display
      */
     DELETED("Deleted");
