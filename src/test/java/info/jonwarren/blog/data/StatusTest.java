@@ -18,6 +18,7 @@ public class StatusTest {
     /**
      * Test method for {@link Status#toString()}.
      */
+    //TODO: split into separate tests
     @Test
     public final void testToString() {
         Status created = Status.CREATED;
@@ -28,6 +29,9 @@ public class StatusTest {
 
         Status posted = Status.POSTED;
         assertThat(posted.toString(), equalTo("Posted"));
+        
+        Status unposted = Status.UNPOSTED;
+        assertThat(unposted.toString(), equalTo("UnPosted"));
 
         Status edited = Status.EDITED;
         assertThat(edited.toString(), equalTo("Edited"));
