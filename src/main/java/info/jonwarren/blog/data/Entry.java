@@ -43,6 +43,9 @@ public class Entry {
     @Column(name = "entry_content")
     private String content;
 
+    @Column(name = "short_url")
+    private String shortUrl;
+
     @OneToMany
     @JoinColumn(name = "status_id")
     private List<EntryStatus> statuses;
@@ -145,6 +148,9 @@ public class Entry {
         }
     }
 
+    // REMINDER: Do not delete & re-auto-generate all Getters & Setters -- some are tweaked to throw exceptions
+    // TODO: is this even good practice??? Probably not, so maybe we should change how this is handled.
+
     /**
      * @return the id
      */
@@ -156,6 +162,7 @@ public class Entry {
      * @param id
      *            the id to set
      */
+    //TODO: restrict to not negative
     public void setId(Long id) {
         this.id = id;
     }
@@ -163,6 +170,7 @@ public class Entry {
     /**
      * @return the name
      */
+    //TODO: html decode values
     public String getName() {
         return name;
     }
@@ -173,6 +181,7 @@ public class Entry {
      * @throws InvalidNameException
      *             if provided name is null
      */
+    //TODO: html encode values
     public void setName(String name) throws InvalidNameException {
         if (name == null) {
             throw new InvalidNameException("Entry name can not be null");
@@ -183,6 +192,7 @@ public class Entry {
     /**
      * @return the content
      */
+    //TODO: html decode values
     public String getContent() {
         return content;
     }
@@ -191,8 +201,29 @@ public class Entry {
      * @param content
      *            the content to set
      */
+    //TODO: html encode values
+    //TODO: strip some html tags
     public void setContent(String content) {
         this.content = content;
+    }
+
+    /**
+     * @return the shortUrl
+     */
+    //TODO: html decode values
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    /**
+     * @param shortUrl
+     *            the shortUrl to set
+     */
+    //TODO: if shortUrl == null; change current status to 'unposted'
+    //TODO: spaces should not be allowed
+    //TODO: html encode values
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
     }
 
     /**
@@ -206,6 +237,7 @@ public class Entry {
      * @param statuses
      *            the statuses to set
      */
+    //TODO: prevent setting to an empty list, or null
     public void setStatuses(List<EntryStatus> statuses) {
         this.statuses = statuses;
     }
@@ -237,6 +269,7 @@ public class Entry {
         result = prime * result + ((content == null) ? 0 : content.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((shortUrl == null) ? 0 : shortUrl.hashCode());
         result = prime * result + ((statuses == null) ? 0 : statuses.hashCode());
         result = prime * result + ((tags == null) ? 0 : tags.hashCode());
         return result;
@@ -280,6 +313,13 @@ public class Entry {
         } else if (!name.equals(other.name)) {
             return false;
         }
+        if (shortUrl == null) {
+            if (other.shortUrl != null) {
+                return false;
+            }
+        } else if (!shortUrl.equals(other.shortUrl)) {
+            return false;
+        }
         if (statuses == null) {
             if (other.statuses != null) {
                 return false;
@@ -311,6 +351,8 @@ public class Entry {
         builder.append(name);
         builder.append(", content=");
         builder.append(content);
+        builder.append(", shortUrl=");
+        builder.append(shortUrl);
         builder.append(", statuses=");
         builder.append(statuses);
         builder.append(", tags=");
