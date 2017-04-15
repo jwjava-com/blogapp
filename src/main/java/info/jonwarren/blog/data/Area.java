@@ -5,15 +5,40 @@ package info.jonwarren.blog.data;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 /**
  * Data container for a single blog area.
  *
  * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
+//TODO: create tests
+@Entity
+@Table(name = "areas")
 public class Area {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "area_id")
     private Long id;
+
+    @NotNull
+    @Column(name = "area_name")
     private String name;
+
+    @Column(name = "short_url")
+    private String shortUrl;
+
+    @OneToMany
+    @JoinColumn(name = "entry_id")
     private List<Entry> entries;
 
     /**
@@ -47,6 +72,23 @@ public class Area {
     }
 
     /**
+     * @return the shortUrl
+     */
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    /**
+     * @param shortUrl
+     *            the shortUrl to set
+     */
+    //TODO: if shortUrl == null; change current status to 'unposted'
+    //TODO: spaces should not be allowed
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
+
+    /**
      * @return the entries
      */
     public List<Entry> getEntries() {
@@ -73,6 +115,7 @@ public class Area {
         result = prime * result + ((entries == null) ? 0 : entries.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((shortUrl == null) ? 0 : shortUrl.hashCode());
         return result;
     }
 
@@ -114,6 +157,13 @@ public class Area {
         } else if (!name.equals(other.name)) {
             return false;
         }
+        if (shortUrl == null) {
+            if (other.shortUrl != null) {
+                return false;
+            }
+        } else if (!shortUrl.equals(other.shortUrl)) {
+            return false;
+        }
         return true;
     }
 
@@ -129,6 +179,8 @@ public class Area {
         builder.append(id);
         builder.append(", name=");
         builder.append(name);
+        builder.append(", shortUrl=");
+        builder.append(shortUrl);
         builder.append(", entries=");
         builder.append(entries);
         builder.append("]");
