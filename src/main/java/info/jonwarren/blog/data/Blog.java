@@ -10,11 +10,15 @@ import java.util.List;
  *
  * @author Jon Warren &lt;jon&#064;jonwarren.info&gt;
  */
+//TODO: add JPA annotations
+//TODO: create tests
 public class Blog {
 
     private String name;
     private String description;
     private List<Area> areas;
+    private Owner owner;
+    private Copyright copyright;
 
     /**
      * @return the name
@@ -61,6 +65,36 @@ public class Blog {
         this.areas = areas;
     }
 
+    /**
+     * @return the owner
+     */
+    public Owner getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param owner
+     *            the owner to set
+     */
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    /**
+     * @return the copyright
+     */
+    public Copyright getCopyright() {
+        return copyright;
+    }
+
+    /**
+     * @param copyright
+     *            the copyright to set
+     */
+    public void setCopyright(Copyright copyright) {
+        this.copyright = copyright;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -71,8 +105,10 @@ public class Blog {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((areas == null) ? 0 : areas.hashCode());
+        result = prime * result + ((copyright == null) ? 0 : copyright.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((owner == null) ? 0 : owner.hashCode());
         return result;
     }
 
@@ -100,6 +136,13 @@ public class Blog {
         } else if (!areas.equals(other.areas)) {
             return false;
         }
+        if (copyright == null) {
+            if (other.copyright != null) {
+                return false;
+            }
+        } else if (!copyright.equals(other.copyright)) {
+            return false;
+        }
         if (description == null) {
             if (other.description != null) {
                 return false;
@@ -112,6 +155,13 @@ public class Blog {
                 return false;
             }
         } else if (!name.equals(other.name)) {
+            return false;
+        }
+        if (owner == null) {
+            if (other.owner != null) {
+                return false;
+            }
+        } else if (!owner.equals(other.owner)) {
             return false;
         }
         return true;
@@ -131,6 +181,10 @@ public class Blog {
         builder.append(description);
         builder.append(", areas=");
         builder.append(areas);
+        builder.append(", owner=");
+        builder.append(owner);
+        builder.append(", copyright=");
+        builder.append(copyright);
         builder.append("]");
         return builder.toString();
     }

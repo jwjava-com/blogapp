@@ -54,6 +54,10 @@ public class Entry {
     @JoinColumn(name = "tag_id")
     private Set<Tag> tags;
 
+    //TODO: add JPA annotations
+    //TODO: create tests
+    private Copyright copyright;
+
     /**
      * Create a new {@link Entry} object, initialized to default values.
      */
@@ -150,6 +154,7 @@ public class Entry {
 
     // REMINDER: Do not delete & re-auto-generate all Getters & Setters -- some are tweaked to throw exceptions
     // TODO: is this even good practice??? Probably not, so maybe we should change how this is handled.
+    // REMINDER: hashCode, equals, and toString are safe to be re-auto-generated
 
     /**
      * @return the id
@@ -257,6 +262,21 @@ public class Entry {
         this.tags = tags;
     }
 
+    /**
+     * @return the copyright
+     */
+    public Copyright getCopyright() {
+        return copyright;
+    }
+
+    /**
+     * @param copyright
+     *            the copyright to set
+     */
+    public void setCopyright(Copyright copyright) {
+        this.copyright = copyright;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -267,6 +287,7 @@ public class Entry {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((content == null) ? 0 : content.hashCode());
+        result = prime * result + ((copyright == null) ? 0 : copyright.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((shortUrl == null) ? 0 : shortUrl.hashCode());
@@ -297,6 +318,13 @@ public class Entry {
                 return false;
             }
         } else if (!content.equals(other.content)) {
+            return false;
+        }
+        if (copyright == null) {
+            if (other.copyright != null) {
+                return false;
+            }
+        } else if (!copyright.equals(other.copyright)) {
             return false;
         }
         if (id == null) {
@@ -357,6 +385,8 @@ public class Entry {
         builder.append(statuses);
         builder.append(", tags=");
         builder.append(tags);
+        builder.append(", copyright=");
+        builder.append(copyright);
         builder.append("]");
         return builder.toString();
     }
