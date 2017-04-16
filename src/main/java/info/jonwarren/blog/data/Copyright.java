@@ -15,26 +15,10 @@ import java.time.Year;
 //TODO: create tests
 public class Copyright {
 
-    private String displayTemplate = "";
     private Year originalYear = Year.from(Instant.now());
     private Year modificationYear;
     private boolean modified = false;
     private boolean ownerNamePublic = true;
-
-    /**
-     * @return the displayTemplate
-     */
-    public String getDisplayTemplate() {
-        return displayTemplate;
-    }
-
-    /**
-     * @param displayTemplate
-     *            the displayTemplate to set
-     */
-    public void setDisplayTemplate(String displayTemplate) {
-        this.displayTemplate = displayTemplate;
-    }
 
     /**
      * @return the originalYear
@@ -49,11 +33,6 @@ public class Copyright {
      */
     public void setOriginalYear(Year originalYear) {
         this.originalYear = originalYear;
-        if (this.modificationYear != null && !this.modificationYear.equals(originalYear)) {
-            setModified(true);
-        } else {
-            setModified(false);
-        }
     }
 
     /**
@@ -69,11 +48,6 @@ public class Copyright {
      */
     public void setModificationYear(Year modificationYear) {
         this.modificationYear = modificationYear;
-        if (this.originalYear != null && !this.originalYear.equals(modificationYear)) {
-            setModified(true);
-        } else {
-            setModified(false);
-        }
     }
 
     /**
@@ -115,7 +89,6 @@ public class Copyright {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((displayTemplate == null) ? 0 : displayTemplate.hashCode());
         result = prime * result + ((modificationYear == null) ? 0 : modificationYear.hashCode());
         result = prime * result + (modified ? 1231 : 1237);
         result = prime * result + ((originalYear == null) ? 0 : originalYear.hashCode());
@@ -140,13 +113,6 @@ public class Copyright {
             return false;
         }
         Copyright other = (Copyright) obj;
-        if (displayTemplate == null) {
-            if (other.displayTemplate != null) {
-                return false;
-            }
-        } else if (!displayTemplate.equals(other.displayTemplate)) {
-            return false;
-        }
         if (modificationYear == null) {
             if (other.modificationYear != null) {
                 return false;
@@ -178,9 +144,7 @@ public class Copyright {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Copyright [displayTemplate=");
-        builder.append(displayTemplate);
-        builder.append(", originalYear=");
+        builder.append("Copyright [originalYear=");
         builder.append(originalYear);
         builder.append(", modificationYear=");
         builder.append(modificationYear);
