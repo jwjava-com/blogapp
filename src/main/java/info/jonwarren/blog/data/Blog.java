@@ -19,6 +19,7 @@ public class Blog {
     private List<Area> areas;
     private Owner owner;
     private Copyright copyright;
+    private Contact contact;
 
     /**
      * @return the name
@@ -95,6 +96,21 @@ public class Blog {
         this.copyright = copyright;
     }
 
+    /**
+     * @return the contact
+     */
+    public Contact getContact() {
+        return contact;
+    }
+
+    /**
+     * @param contact
+     *            the contact to set
+     */
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -105,6 +121,7 @@ public class Blog {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((areas == null) ? 0 : areas.hashCode());
+        result = prime * result + ((contact == null) ? 0 : contact.hashCode());
         result = prime * result + ((copyright == null) ? 0 : copyright.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -134,6 +151,13 @@ public class Blog {
                 return false;
             }
         } else if (!areas.equals(other.areas)) {
+            return false;
+        }
+        if (contact == null) {
+            if (other.contact != null) {
+                return false;
+            }
+        } else if (!contact.equals(other.contact)) {
             return false;
         }
         if (copyright == null) {
@@ -185,6 +209,8 @@ public class Blog {
         builder.append(owner);
         builder.append(", copyright=");
         builder.append(copyright);
+        builder.append(", contact=");
+        builder.append(contact);
         builder.append("]");
         return builder.toString();
     }
