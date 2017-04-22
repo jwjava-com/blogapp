@@ -13,6 +13,7 @@ package info.jonwarren.blog.data;
 public class Owner {
 
     private String name;
+    private String displayName;
     private String email;
 
     /**
@@ -28,6 +29,21 @@ public class Owner {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the displayName
+     */
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    /**
+     * @param displayName
+     *            the displayName to set
+     */
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     /**
@@ -54,6 +70,7 @@ public class Owner {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
@@ -76,6 +93,13 @@ public class Owner {
             return false;
         }
         Owner other = (Owner) obj;
+        if (displayName == null) {
+            if (other.displayName != null) {
+                return false;
+            }
+        } else if (!displayName.equals(other.displayName)) {
+            return false;
+        }
         if (email == null) {
             if (other.email != null) {
                 return false;
@@ -103,6 +127,8 @@ public class Owner {
         StringBuilder builder = new StringBuilder();
         builder.append("Owner [name=");
         builder.append(name);
+        builder.append(", displayName=");
+        builder.append(displayName);
         builder.append(", email=");
         builder.append(email);
         builder.append("]");
